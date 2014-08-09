@@ -14,8 +14,14 @@ end
 trace.enable
 
 class Foo
-  def foo
-    puts 'bar'
+  def baz
+    puts 'baz'
+  end
+end
+
+class OtherFoo
+  def baz
+    puts 'this is not the original baz'
   end
 end
 
@@ -25,15 +31,19 @@ class Bar
   end
 
   def bar
-    @foo.foo
+    @foo.baz
   end
 end
 
 foo = Foo.new
-foo.foo
+foo.baz
 
 bar = Bar.new foo
-bar.bar; foo.foo
+bar.bar
+foo.baz
+
+otherfoo = OtherFoo.new
+otherfoo.baz
 
 trace.disable
 IO.write('callsite-info.yml', YAML.dump(@callers))
