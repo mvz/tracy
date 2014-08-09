@@ -1,8 +1,9 @@
+require 'yaml'
 @callers = {}
 trace = TracePoint.new(:call, :line) do |tp|
   case tp.event
   when :call
-    key = [tp.method_id, tp.defined_class, tp.lineno, tp.path]
+    key = [tp.method_id, tp.defined_class.name, tp.lineno, tp.path]
     @callers[key] ||= []
     @callers[key].push @current_location
   when :line
@@ -35,5 +36,4 @@ bar = Bar.new foo
 bar.bar; foo.foo
 
 trace.disable
-
-p @callers
+IO.write('callsite-info.yml', YAML.dump(@callers))
