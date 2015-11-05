@@ -1,0 +1,29 @@
+---
+? - :baz
+  - Foo
+  - 17
+  - experiment.rb
+: - - 39
+    - experiment.rb
+  - - 34
+    - experiment.rb
+  - - 43
+    - experiment.rb
+? - :initialize
+  - Bar
+  - 29
+  - experiment.rb
+: - - 41
+    - experiment.rb
+? - :bar
+  - Bar
+  - 33
+  - experiment.rb
+: - - 42
+    - experiment.rb
+? - :baz
+  - OtherFoo
+  - 23
+  - experiment.rb
+: - - 46
+    - experiment.rb
