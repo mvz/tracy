@@ -4,6 +4,10 @@ A set of experiments to investigate the possibility of using tracing
 information gathered during, e.g., the running of a test suite to aid in
 refactoring.
 
+## Installing
+
+    gem install tracy
+
 If the gem is not installed, you should run the commands listed below using
 `bundle exec`.
 
@@ -38,3 +42,7 @@ The following example will rename the method `Foo#baz`, but not `OtherFoo#baz`:
 
     ruby rename-method.rb experiment.rb:17 baz foodeldoo
 
+## Problems
+
+Gathering information like this is currently excruciatingly slow in real-world
+projects.
