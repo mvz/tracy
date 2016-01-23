@@ -17,6 +17,10 @@ following will display callers of the method defined on line 17 of
 
     ruby callsites.rb experiment.rb:17
 
+Alternatively, you can fetch call sites for a method by name like so:
+
+    ruby callsites.rb Foo#baz
+
 ## Renaming methods
 
 The `rename-method.rb` script performs a simple informed method renaming. It

@@ -10,10 +10,15 @@ Location = Struct.new(:method_name, :class_name, :line, :file) do
 end
 
 location = ARGV[0]
-file, line = location.split ':'
-line = line.to_i
+if location =~ /:/
+  file, line = location.split ':'
+  line = line.to_i
+else
+  class_name, method_name = location.split '#'
+  method_name = method_name.to_sym
+end
 
-target_location = Location.new(nil, nil, line, file)
+target_location = Location.new(method_name, class_name, line, file)
 
 location_data = YAML.load(File.read('callsite-info.yml'))
 locations = []
