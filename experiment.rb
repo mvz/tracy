@@ -25,6 +25,10 @@ class Bar
   end
 end
 
+def blub
+  puts 'Blub'
+end
+
 foo = Foo.new
 foo.baz
 
@@ -34,5 +38,7 @@ foo.baz
 
 otherfoo = OtherFoo.new
 otherfoo.baz
+
+blub
 
 tracy.done

@@ -6,10 +6,9 @@ class Tracy
     @trace = TracePoint.new(:call, :line) do |tp|
       case tp.event
       when :call
-        key = [tp.method_id, tp.defined_class.name, tp.lineno, tp.path]
-        @callers[key].push @current_location
+        @callers[data_array(tp)].push @current_location
       when :line
-        @current_location = [tp.lineno, tp.path]
+        @current_location = data_array(tp)
       end
     end
   end
@@ -21,5 +20,12 @@ class Tracy
   def done
     @trace.disable
     IO.write('callsite-info.yml', YAML.dump(@callers))
+  end
+
+  private
+
+  def data_array(trace_point)
+    klass = trace_point.defined_class
+    [trace_point.method_id, klass ? klass.name : '', trace_point.lineno, trace_point.path]
   end
 end

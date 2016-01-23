@@ -3,33 +3,55 @@
   - Foo
   - 7
   - experiment.rb
-: - - 29
+: - - 
+    - ''
+    - 33
     - experiment.rb
-  - - 24
+  - - :bar
+    - Bar
+    - 24
     - experiment.rb
-  - - 33
+  - - 
+    - ''
+    - 37
     - experiment.rb
 ? - :initialize
   - Bar
   - 19
   - experiment.rb
-: - - 31
+: - - 
+    - ''
+    - 35
     - experiment.rb
 ? - :bar
   - Bar
   - 23
   - experiment.rb
-: - - 32
+: - - 
+    - ''
+    - 36
     - experiment.rb
 ? - :baz
   - OtherFoo
   - 13
   - experiment.rb
-: - - 36
+: - - 
+    - ''
+    - 40
+    - experiment.rb
+? - :blub
+  - Object
+  - 28
+  - experiment.rb
+: - - 
+    - ''
+    - 42
     - experiment.rb
 ? - :done
   - Tracy
-  - 21
+  - 20
   - "/home/matijs/Documents/Projects/tracy/tracy.rb"
-: - - 38
+: - - 
+    - ''
+    - 44
     - experiment.rb
