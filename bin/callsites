@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'yaml'
 
 Location = Struct.new(:method_name, :class_name, :line, :file) do
