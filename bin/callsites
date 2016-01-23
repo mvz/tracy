@@ -39,7 +39,7 @@ end
 
 selection.each do |key, callers|
   puts "#{Location.new(*key).pretty_print} is called by"
-  callers.each do |call_site|
+  callers.keys.each do |call_site|
     puts "  #{Location.new(*call_site).pretty_print}"
   end
 end

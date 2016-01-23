@@ -45,13 +45,13 @@ Feature: Looking up callsites
       otherfoo = OtherFoo.new
       otherfoo.baz
 
-      blub
+      3.times { blub }
 
       tracy.done
       """
     When I run "ruby program.rb"
     And I run "callsites Foo#baz"
-    Then the output should contain:
+    Then the output from "callsites Foo#baz" should contain exactly:
       """
       Foo#baz at program.rb:7 is called by
         <main> at program.rb:34

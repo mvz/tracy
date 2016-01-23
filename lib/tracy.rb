@@ -2,11 +2,11 @@ require 'yaml'
 
 class Tracy
   def initialize
-    @callers = Hash.new { |hash, key| hash[key] = [] }
+    @callers = Hash.new { |hash, key| hash[key] = {} }
     @trace = TracePoint.new(:call, :line) do |tp|
       case tp.event
       when :call
-        @callers[data_array(tp)].push @current_location
+        @callers[data_array(tp)][@current_location] = 1
       when :line
         @current_location = data_array(tp)
       end
