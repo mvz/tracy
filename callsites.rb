@@ -7,6 +7,15 @@ Location = Struct.new(:method_name, :class_name, :line, :file) do
       (other.line.nil? || other.line == line) &&
       (other.file.nil? || other.file == file)
   end
+
+  def pretty_print
+    if method_name
+      name = "#{class_name}##{method_name}"
+    else
+      name = '<main>'
+    end
+    "#{name} at #{file}:#{line}"
+  end
 end
 
 location = ARGV[0]
@@ -21,13 +30,15 @@ end
 target_location = Location.new(method_name, class_name, line, file)
 
 location_data = YAML.load(File.read('callsite-info.yml'))
-locations = []
 
-location_data.each do |key, callers|
+selection = location_data.select do |key, callers|
   loc = Location.new(*key)
-  if loc.match(target_location)
-    locations += callers
-  end
+  loc.match(target_location)
 end
 
-p locations
+selection.each do |key, callers|
+  puts "#{Location.new(*key).pretty_print} is called by"
+  callers.each do |call_site|
+    puts "  #{Location.new(*call_site).pretty_print}"
+  end
+end

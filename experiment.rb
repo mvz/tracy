@@ -27,6 +27,7 @@ end
 
 def blub
   puts 'Blub'
+  Foo.new.baz
 end
 
 foo = Foo.new
