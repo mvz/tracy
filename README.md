@@ -4,6 +4,9 @@ A set of experiments to investigate the possibility of using tracing
 information gathered during, e.g., the running of a test suite to aid in
 refactoring.
 
+If the gem is not installed, you should run the commands listed below using
+`bundle exec`.
+
 ## Gathering caller info
 
 Running `ruby experiment.rb` will generate `callsite-info.yml` containing a
@@ -11,15 +14,15 @@ list of callers for each method in `experiment.rb`.
 
 ## Showing caller info
 
-The `callsites.rb` script simply fetches info from `callsites-info.yml`. The
+The `callsites` script simply fetches info from `callsites-info.yml`. The
 following will display callers of the method defined on line 7 of
 `experiment.rb`:
 
-    ruby callsites.rb experiment.rb:7
+    callsites experiment.rb:7
 
 Alternatively, you can fetch call sites for a method by name like so:
 
-    ruby callsites.rb Foo#baz
+    callsites Foo#baz
 
 ## Renaming methods
 

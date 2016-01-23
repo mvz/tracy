@@ -1,4 +1,4 @@
-require_relative 'tracy'
+require 'tracy'
 
 tracy = Tracy.new
 tracy.start
