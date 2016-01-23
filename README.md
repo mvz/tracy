@@ -12,10 +12,10 @@ list of callers for each method in `experiment.rb`.
 ## Showing caller info
 
 The `callsites.rb` script simply fetches info from `callsites-info.yml`. The
-following will display callers of the method defined on line 17 of
+following will display callers of the method defined on line 7 of
 `experiment.rb`:
 
-    ruby callsites.rb experiment.rb:17
+    ruby callsites.rb experiment.rb:7
 
 Alternatively, you can fetch call sites for a method by name like so:
 

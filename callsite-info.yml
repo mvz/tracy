@@ -1,29 +1,35 @@
 ---
 ? - :baz
   - Foo
-  - 17
+  - 7
   - experiment.rb
-: - - 39
+: - - 29
     - experiment.rb
-  - - 34
+  - - 24
     - experiment.rb
-  - - 43
+  - - 33
     - experiment.rb
 ? - :initialize
   - Bar
-  - 29
+  - 19
   - experiment.rb
-: - - 41
+: - - 31
     - experiment.rb
 ? - :bar
   - Bar
-  - 33
+  - 23
   - experiment.rb
-: - - 42
+: - - 32
     - experiment.rb
 ? - :baz
   - OtherFoo
-  - 23
+  - 13
   - experiment.rb
-: - - 46
+: - - 36
+    - experiment.rb
+? - :done
+  - Tracy
+  - 22
+  - "/home/matijs/Documents/Projects/tracy/tracy.rb"
+: - - 38
     - experiment.rb
