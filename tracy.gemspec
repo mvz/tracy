@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'tracy'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
 
   s.author = 'Matijs van Zuijlen'
   s.email = 'matijs@matijs.net'
@@ -9,7 +9,13 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = 'Fun with tracing'
 
-  s.files = Dir['{lib}/**/*.rb', 'bin/*', 'README.md', 'Rakefile']
+  s.files = Dir['lib/**/*.rb',
+                'features/**/*.rb',
+                'features/**/*.feature',
+                'bin/*',
+                'README.md',
+                'Rakefile',
+                'Gemfile']
 
   s.require_paths << 'lib'
   s.bindir = 'bin'
