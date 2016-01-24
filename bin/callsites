@@ -20,7 +20,8 @@ Location = Struct.new(:method_name, :class_name, :line, :file) do
 end
 
 location = ARGV[0]
-if location =~ /:/
+
+if location =~ /:\d+$/
   file, line = location.split ':'
   line = line.to_i
 else
