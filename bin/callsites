@@ -26,7 +26,7 @@ if location =~ /:\d+$/
   line = line.to_i
 else
   class_name, method_name = location.split '#'
-  method_name = method_name.to_sym
+  method_name = method_name.to_sym if method_name
 end
 
 target_location = Location.new(method_name, class_name, line, file)
