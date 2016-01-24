@@ -122,3 +122,30 @@ Feature: Looking up callsites
       Foo#baz at program.rb:11 is called by
         <main> at program.rb:18
       """
+
+  Scenario: Printing callsites by file and line
+    Given a file named "program.rb" with:
+      """
+      require 'tracy'
+
+      tracy = Tracy.new
+      tracy.start
+
+      class Foo
+        def bar
+          # whatever
+        end
+      end
+
+      foo = Foo.new
+      foo.bar
+
+      tracy.done
+      """
+    When I run `ruby program.rb`
+    And I run `callsites program.rb:7`
+    Then the output from "callsites program.rb:7" should contain exactly:
+      """
+      Foo#bar at program.rb:7 is called by
+        <main> at program.rb:13
+      """
