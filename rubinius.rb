@@ -63,8 +63,6 @@ def print_executable(executable, count)
 end
 
 def print_call_site(call_site, count)
-  indent = '    ' * count
-
   case call_site
   when Rubinius::PolyInlineCache
     call_site.entries.each do |entry|
@@ -73,7 +71,7 @@ def print_call_site(call_site, count)
     end
   when Rubinius::MonoInlineCache
     callee = call_site.method
-    if callee.is_a? Rubinius::CompiledCode
+    if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
       executable = call_site.executable
       scope = executable.scope
       puts "MonoInlineCache:"
@@ -86,9 +84,8 @@ def print_call_site(call_site, count)
 end
 
 def print_cache_entry(call_site, entry, count)
-  indent = '    ' * count
   callee = entry.method
-  if callee.is_a? Rubinius::CompiledCode
+  if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
     executable = call_site.executable
     scope = executable.scope
     puts "InlineCacheEntry:"
