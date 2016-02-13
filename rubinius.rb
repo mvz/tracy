@@ -46,19 +46,25 @@ main
 
 m = method :main
 
-ObjectSpace.each_object(Rubinius::CallSite).each do |call_site|
-  next if call_site.is_a? Rubinius::InlineCacheEntry
-  next unless call_site.location =~ /tracy/
-  case call_site
-  when Rubinius::PolyInlineCache
-    puts "PolyInlineCache at #{call_site.location}"
-    call_site.entries.each do |entry|
-      next unless entry
-      puts "  Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}"
+this_file = File.expand_path(__FILE__).to_sym
+executables = ObjectSpace.each_object(Rubinius::CompiledCode).select do |executable|
+  executable.file == this_file
+end
+
+executables.each do |executable|
+  puts "Executable #{executable.name} in #{executable.file}"
+  executable.call_sites.each do |call_site|
+    case call_site
+    when Rubinius::PolyInlineCache
+      puts "  PolyInlineCache at #{call_site.location}"
+      call_site.entries.each do |entry|
+        next unless entry
+        puts "    Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}"
+      end
+    when Rubinius::MonoInlineCache
+      puts "  Mono cache for method #{call_site.receiver_class}::#{call_site.name} at #{call_site.location}"
+    when Rubinius::CallSite
+      puts "  CallSite #{call_site.name} inside #{executable.name} at #{call_site.location}"
     end
-  when Rubinius::MonoInlineCache
-    puts "Mono cache for method #{call_site.receiver_class}::#{call_site.name} at #{call_site.location}"
-  when Rubinius::CallSite
-    puts "CallSite #{call_site.name} inside #{call_site.executable.name} at #{call_site.location}"
   end
 end
