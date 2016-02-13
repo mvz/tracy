@@ -72,10 +72,10 @@ def print_call_site(call_site)
   when Rubinius::MonoInlineCache
     callee = call_site.method
     if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
+      puts "MonoInlineCache:"
       executable = call_site.executable
       scope = executable.scope
       path, line = call_site.location.split(':')
-      puts "MonoInlineCache:"
       p [executable.name, scope ? scope.module : '', line.to_i, path]
       callee_scope = callee.scope
       p [callee.name, callee_scope ? callee_scope.module : '', callee.defined_line, callee.file]
@@ -88,15 +88,23 @@ end
 def print_cache_entry(call_site, entry)
   callee = entry.method
   if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
-    executable = call_site.executable
-    scope = executable.scope
-    path, line = call_site.location.split(':')
     puts "InlineCacheEntry:"
-    p [executable.name, scope ? scope.module : '', line.to_i, path]
-    callee_scope = callee.scope
-    p [callee.name, callee_scope ? callee_scope.module : '', callee.defined_line, callee.file]
+    p caller_data(call_site)
+    p callee_data(callee)
   end
   print_executable(callee)
+end
+
+def callee_data(callee)
+  scope = callee.scope
+  [callee.name, scope ? scope.module : '', callee.defined_line, callee.file]
+end
+
+def caller_data(call_site)
+  executable = call_site.executable
+  scope = executable.scope
+  path, line = call_site.location.split(':')
+  [executable.name, scope ? scope.module : '', line.to_i, path]
 end
 
 print_executable(m.executable)
