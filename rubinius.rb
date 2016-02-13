@@ -70,19 +70,19 @@ def print_call_site(call_site)
       print_cache_entry(call_site, entry)
     end
   when Rubinius::MonoInlineCache
-    callee = call_site.method
-    if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
-      puts "MonoInlineCache:"
-      executable = call_site.executable
-      scope = executable.scope
-      path, line = call_site.location.split(':')
-      p [executable.name, scope ? scope.module : '', line.to_i, path]
-      callee_scope = callee.scope
-      p [callee.name, callee_scope ? callee_scope.module : '', callee.defined_line, callee.file]
-    end
-    print_executable(callee)
+    print_mono_cache(call_site)
   when Rubinius::CallSite
   end
+end
+
+def print_mono_cache(call_site)
+  callee = call_site.method
+  if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
+    puts "MonoInlineCache:"
+    p caller_data(call_site)
+    p callee_data(callee)
+  end
+  print_executable(callee)
 end
 
 def print_cache_entry(call_site, entry)
