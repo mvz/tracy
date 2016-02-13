@@ -78,8 +78,15 @@ def print_call_site(call_site, count, printable)
       print_cache_entry(call_site, entry, count + 1, printable)
     end
   when Rubinius::MonoInlineCache
-    puts "#{indent}MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name}" if printable
-    print_executable(call_site.method, count + 1)
+    executable = call_site.method
+    if printable
+      if executable.is_a? Rubinius::CompiledCode
+        puts "#{indent}MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name} at #{executable.file}:#{executable.defined_line}"
+      else
+        puts "#{indent}MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name}"
+      end
+    end
+    print_executable(executable, count + 1)
   when Rubinius::CallSite
     puts "#{indent}CallSite #{call_site.name} at #{call_site.location}" if printable
   end
@@ -87,7 +94,15 @@ end
 
 def print_cache_entry(call_site, entry, count, printable)
   indent = '    ' * count
-  puts "#{indent}Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}" if printable
-  print_executable(entry.method, count + 1)
+  executable = entry.method
+  if printable
+    if executable.is_a? Rubinius::CompiledCode
+      puts "#{indent}InlineCacheEntry at #{call_site.location} calling #{entry.receiver_class}::#{call_site.name} at #{executable.file}:#{executable.defined_line}"
+    else
+      puts "#{indent}InlineCacheEntry at #{call_site.location} calling #{entry.receiver_class}::#{call_site.name}"
+    end
+  end
+  print_executable(executable, count + 1)
 end
+
 print_executable(m.executable, 0)
