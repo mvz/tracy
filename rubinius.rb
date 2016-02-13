@@ -44,27 +44,43 @@ end
 
 main
 
-m = method :main
+m = method :__script__
 
-this_file = File.expand_path(__FILE__).to_sym
-executables = ObjectSpace.each_object(Rubinius::CompiledCode).select do |executable|
-  executable.file == this_file
-end
+def recurse_call_sites(executable, count)
+  return if count > 7
 
-executables.each do |executable|
-  puts "Executable #{executable.name} in #{executable.file} line #{executable.defined_line}"
+  indent = '   ' * count
+
+  puts "#{indent}Executable #{executable.name} in #{executable.file} line #{executable.defined_line}"
+
   executable.call_sites.each do |call_site|
     case call_site
     when Rubinius::PolyInlineCache
-      puts "  PolyInlineCache at #{call_site.location}"
+      puts "#{indent} PolyInlineCache at #{call_site.location}"
       call_site.entries.each do |entry|
         next unless entry
-        puts "    Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}"
+        puts "#{indent}  Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}"
+        begin
+          #recurse_call_sites(entry.method, count + 1)
+        rescue => e
+          require 'pry'
+          binding.pry
+        end
       end
     when Rubinius::MonoInlineCache
-      puts "  Mono cache for method #{call_site.receiver_class}::#{call_site.name} at #{call_site.location}"
+      puts "#{indent} Mono cache for method #{call_site.receiver_class}::#{call_site.name} at #{call_site.location}"
+      #recurse_call_sites(call_site.method, count + 1)
     when Rubinius::CallSite
-      puts "  CallSite #{call_site.name} inside #{executable.name} at #{call_site.location}"
+      puts "#{indent} CallSite #{call_site.name} at #{call_site.location}"
+    else
+      p call_site
+      #recurse_call_sites(call_site.method, count + 1)
     end
   end
+
+  executable.child_methods.each do |ex|
+    recurse_call_sites(ex, count + 1)
+  end
 end
+
+recurse_call_sites(m.executable, 0)
