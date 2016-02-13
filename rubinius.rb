@@ -53,13 +53,10 @@ def print_executable(executable, count)
   return if EXECUTABLES[executable]
   EXECUTABLES[executable] = 1
 
-  printable = executable.file =~ /tracy/
   indent = '    ' * count
 
-  puts "#{indent}Executable #{executable.name} in #{executable.file} line #{executable.defined_line}" if printable
-
   executable.call_sites.each do |call_site|
-    print_call_site(call_site, count + 1, printable)
+    print_call_site(call_site, count + 1)
   end
 
   executable.child_methods.each do |ex|
@@ -67,42 +64,32 @@ def print_executable(executable, count)
   end
 end
 
-def print_call_site(call_site, count, printable)
+def print_call_site(call_site, count)
   indent = '    ' * count
 
   case call_site
   when Rubinius::PolyInlineCache
-    puts "#{indent}PolyInlineCache at #{call_site.location}" if printable
     call_site.entries.each do |entry|
       next unless entry
-      print_cache_entry(call_site, entry, count + 1, printable)
+      print_cache_entry(call_site, entry, count + 1)
     end
   when Rubinius::MonoInlineCache
-    executable = call_site.method
-    if printable
-      if executable.is_a? Rubinius::CompiledCode
-        puts "#{indent}MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name} at #{executable.file}:#{executable.defined_line}"
-      else
-        puts "#{indent}MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name}"
-      end
+    callee = call_site.method
+    if callee.is_a? Rubinius::CompiledCode
+      puts "MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name} at #{callee.file}:#{callee.defined_line}"
     end
-    print_executable(executable, count + 1)
+    print_executable(callee, count + 1)
   when Rubinius::CallSite
-    puts "#{indent}CallSite #{call_site.name} at #{call_site.location}" if printable
   end
 end
 
-def print_cache_entry(call_site, entry, count, printable)
+def print_cache_entry(call_site, entry, count)
   indent = '    ' * count
-  executable = entry.method
-  if printable
-    if executable.is_a? Rubinius::CompiledCode
-      puts "#{indent}InlineCacheEntry at #{call_site.location} calling #{entry.receiver_class}::#{call_site.name} at #{executable.file}:#{executable.defined_line}"
-    else
-      puts "#{indent}InlineCacheEntry at #{call_site.location} calling #{entry.receiver_class}::#{call_site.name}"
-    end
+  callee = entry.method
+  if callee.is_a? Rubinius::CompiledCode
+    puts "InlineCacheEntry at #{call_site.location} calling #{entry.receiver_class}::#{call_site.name} at #{callee.file}:#{callee.defined_line}"
   end
-  print_executable(executable, count + 1)
+  print_executable(callee, count + 1)
 end
 
 print_executable(m.executable, 0)
