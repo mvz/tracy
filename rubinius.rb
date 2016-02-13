@@ -46,35 +46,36 @@ main
 
 m = method :__script__
 
+EXECUTABLES = {}
+
 def recurse_call_sites(executable, count)
-  return if count > 7
+  return unless executable.is_a? Rubinius::CompiledCode
+  return if EXECUTABLES[executable]
+  EXECUTABLES[executable] = 1
 
   indent = '   ' * count
 
-  puts "#{indent}Executable #{executable.name} in #{executable.file} line #{executable.defined_line}"
+  printable = executable.file =~ /tracy/
+
+  puts "#{indent}Executable #{executable.name} in #{executable.file} line #{executable.defined_line}" if printable
 
   executable.call_sites.each do |call_site|
     case call_site
     when Rubinius::PolyInlineCache
-      puts "#{indent} PolyInlineCache at #{call_site.location}"
+      puts "#{indent} PolyInlineCache at #{call_site.location}" if printable
       call_site.entries.each do |entry|
         next unless entry
-        puts "#{indent}  Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}"
-        begin
-          #recurse_call_sites(entry.method, count + 1)
-        rescue => e
-          require 'pry'
-          binding.pry
-        end
+        puts "#{indent}  Cache entry for method #{entry.receiver_class}::#{call_site.name} at #{call_site.location}" if printable
+        recurse_call_sites(entry.method, count + 1)
       end
     when Rubinius::MonoInlineCache
-      puts "#{indent} Mono cache for method #{call_site.receiver_class}::#{call_site.name} at #{call_site.location}"
-      #recurse_call_sites(call_site.method, count + 1)
+      puts "#{indent} Mono cache for method #{call_site.receiver_class}::#{call_site.name} at #{call_site.location}" if printable
+      recurse_call_sites(call_site.method, count + 1)
     when Rubinius::CallSite
-      puts "#{indent} CallSite #{call_site.name} at #{call_site.location}"
+      puts "#{indent} CallSite #{call_site.name} at #{call_site.location}" if printable
     else
       p call_site
-      #recurse_call_sites(call_site.method, count + 1)
+      recurse_call_sites(call_site.method, count + 1)
     end
   end
 
