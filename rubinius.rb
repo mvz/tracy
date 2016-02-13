@@ -52,7 +52,7 @@ executables = ObjectSpace.each_object(Rubinius::CompiledCode).select do |executa
 end
 
 executables.each do |executable|
-  puts "Executable #{executable.name} in #{executable.file}"
+  puts "Executable #{executable.name} in #{executable.file} line #{executable.defined_line}"
   executable.call_sites.each do |call_site|
     case call_site
     when Rubinius::PolyInlineCache
