@@ -77,22 +77,22 @@ end
 
 def print_mono_cache(call_site)
   callee = call_site.method
-  if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
-    puts "MonoInlineCache:"
-    p caller_data(call_site)
-    p callee_data(callee)
-  end
+  print_data(call_site, callee, 'MonoInlineCache')
   print_executable(callee)
 end
 
 def print_cache_entry(call_site, entry)
   callee = entry.method
+  print_data(call_site, callee, 'InlineCacheEntry')
+  print_executable(callee)
+end
+
+def print_data(call_site, callee, entry_type)
   if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
-    puts "InlineCacheEntry:"
+    puts "#{entry_type}:"
     p caller_data(call_site)
     p callee_data(callee)
   end
-  print_executable(callee)
 end
 
 def callee_data(callee)
