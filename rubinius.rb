@@ -53,8 +53,6 @@ def print_executable(executable, count)
   return if EXECUTABLES[executable]
   EXECUTABLES[executable] = 1
 
-  indent = '    ' * count
-
   executable.call_sites.each do |call_site|
     print_call_site(call_site, count + 1)
   end
@@ -76,7 +74,11 @@ def print_call_site(call_site, count)
   when Rubinius::MonoInlineCache
     callee = call_site.method
     if callee.is_a? Rubinius::CompiledCode
-      puts "MonoInlineCache at #{call_site.location} calling #{call_site.receiver_class}::#{call_site.name} at #{callee.file}:#{callee.defined_line}"
+      executable = call_site.executable
+      scope = executable.scope
+      puts "MonoInlineCache:"
+      puts "  Caller: #{scope.module if scope}::#{executable.name} at #{call_site.location}"
+      puts "  Callee: #{call_site.receiver_class}::#{call_site.name} at #{callee.file}:#{callee.defined_line}"
     end
     print_executable(callee, count + 1)
   when Rubinius::CallSite
@@ -87,7 +89,11 @@ def print_cache_entry(call_site, entry, count)
   indent = '    ' * count
   callee = entry.method
   if callee.is_a? Rubinius::CompiledCode
-    puts "InlineCacheEntry at #{call_site.location} calling #{entry.receiver_class}::#{call_site.name} at #{callee.file}:#{callee.defined_line}"
+    executable = call_site.executable
+    scope = executable.scope
+    puts "InlineCacheEntry:"
+    puts "  Caller: #{scope.module if scope}::#{executable.name} at #{call_site.location}"
+    puts "  Callee: #{entry.receiver_class}::#{call_site.name} at #{callee.file}:#{callee.defined_line}"
   end
   print_executable(callee, count + 1)
 end
