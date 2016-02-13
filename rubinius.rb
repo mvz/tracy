@@ -46,9 +46,7 @@ main
 
 m = method :main
 
-call_sites = ObjectSpace.each_object(Rubinius::CallSite).map(&:itself)
-
-call_sites.each do |call_site|
+ObjectSpace.each_object(Rubinius::CallSite).each do |call_site|
   next if call_site.is_a? Rubinius::InlineCacheEntry
   next unless call_site.location =~ /tracy/
   case call_site
