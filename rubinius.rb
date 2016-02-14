@@ -50,4 +50,4 @@ m = method :main
 mx = m.executable
 script = mx.scope.script
 
-Tracy::RubiniusHandler.new.print_executable(script.compiled_code)
+Tracy::RubiniusHandler.new.process(script.compiled_code)
