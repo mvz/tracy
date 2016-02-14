@@ -2,10 +2,14 @@ require 'yaml'
 
 class Tracy
   class RubiniusHandler
-    def process(executable)
+    def start
+      @executable = Rubinius::CompiledCode.of_sender
+    end
+
+    def done
       @callers = Hash.new { |hash, key| hash[key] = {} }
       @executables = {}
-      process_executable(executable)
+      process_executable(@executable)
       IO.write('callsite-info.yml', YAML.dump(@callers))
     end
 

@@ -1,5 +1,8 @@
 require 'tracy/rubinius_handler'
 
+tracy = Tracy::RubiniusHandler.new
+tracy.start
+
 class Foo
   def baz
     puts 'baz'
@@ -46,8 +49,4 @@ end
 
 main
 
-m = method :main
-mx = m.executable
-script = mx.scope.script
-
-Tracy::RubiniusHandler.new.process(script.compiled_code)
+tracy.done
