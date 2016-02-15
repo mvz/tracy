@@ -44,17 +44,17 @@ class Tracy
 
     def process_mono_cache(call_site)
       callee = call_site.method
-      process_data(call_site, callee, 'MonoInlineCache')
+      process_data(call_site, callee)
       process_executable(callee)
     end
 
     def process_cache_entry(call_site, entry)
       callee = entry.method
-      process_data(call_site, callee, 'InlineCacheEntry')
+      process_data(call_site, callee)
       process_executable(callee)
     end
 
-    def process_data(call_site, callee, entry_type)
+    def process_data(call_site, callee)
       if callee.is_a?(Rubinius::CompiledCode) && callee.file =~ /tracy/
         @callers[callee_data(callee)][caller_data(call_site)] = 1
       end
