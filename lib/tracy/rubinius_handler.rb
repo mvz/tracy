@@ -62,15 +62,16 @@ class Tracy
 
     def callee_data(callee)
       scope = callee.scope
-      [callee.name, scope ? scope.module.to_s : '', callee.defined_line, callee.file]
+      module_name = scope ? scope.module.to_s : ''
+      [callee.name, module_name, callee.defined_line, callee.file]
     end
 
     def caller_data(call_site)
       executable = call_site.executable
       scope = executable.scope
+      module_name = scope ? scope.module.to_s : ''
       path, line = call_site.location.split(':')
-      [executable.name, scope ? scope.module.to_s : '', line.to_i, path]
+      [executable.name, module_name, line.to_i, path]
     end
   end
 end
-
