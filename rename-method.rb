@@ -12,7 +12,12 @@ Location = Struct.new(:method_name, :class_name, :line, :file)
 
 location_data.each do |key, callers|
   loc = Location.new(*key)
-  locations += callers if line == loc.line && file == loc.file
+  if line == loc.line && file == loc.file
+    caller_locations = callers.keys.map do |_, _, line, file|
+      [line, file]
+    end
+    locations += caller_locations
+  end
 end
 
 rename_locations = (locations + [[line, file]]).sort.uniq
