@@ -47,13 +47,6 @@ Naming/FileName:
   Exclude:
     - 'rename-method.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Performance/RegexpMatch:
-  Exclude:
-    - 'bin/callsites'
-    - 'rename-method.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Security/YAMLLoad:

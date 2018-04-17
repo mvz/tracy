@@ -23,7 +23,7 @@ end
 
 location = ARGV[0]
 
-if location =~ /:\d+$/
+if /:\d+$/.match?(location)
   file, line = location.split ':'
   line = line.to_i
 else

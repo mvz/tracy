@@ -24,10 +24,10 @@ filenames.each do |calling_name|
   lines = File.readlines(calling_name)
   rename_locations.each do |loc_line, loc_file|
     next unless calling_name == loc_file
-    unless lines[loc_line - 1] =~ /\b#{old_name}\b/
+    unless /\b#{old_name}\b/.match?(lines[loc_line - 1])
       raise "Method #{old_name} not found on line #{loc_line} in #{calling_name}"
     end
-    if lines[loc_line - 1] =~ /\b#{old_name}\b.*\b#{old_name}\b/
+    if /\b#{old_name}\b.*\b#{old_name}\b/.match?(lines[loc_line - 1])
       raise "More than one match at line #{loc_line} in #{calling_name}"
     end
     lines[loc_line - 1].gsub!(/\b#{old_name}\b/, new_name)
