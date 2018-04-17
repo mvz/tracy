@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tracy'
 
 tracy = Tracy.new
@@ -16,7 +18,7 @@ class OtherFoo
 end
 
 class Bar
-  def initialize foo
+  def initialize(foo)
     @foo = foo
   end
 

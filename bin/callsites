@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require 'yaml'
 
 Location = Struct.new(:method_name, :class_name, :line, :file) do
@@ -10,18 +12,18 @@ Location = Struct.new(:method_name, :class_name, :line, :file) do
   end
 
   def pretty_print
-    if method_name
-      name = "#{class_name}##{method_name}"
-    else
-      name = '<main>'
-    end
+    name = if method_name
+             "#{class_name}##{method_name}"
+           else
+             '<main>'
+           end
     "#{name} at #{file}:#{line}"
   end
 end
 
 location = ARGV[0]
 
-if location =~ /:\d+$/
+if /:\d+$/.match?(location)
   file, line = location.split ':'
   line = line.to_i
 else
@@ -31,9 +33,9 @@ end
 
 target_location = Location.new(method_name, class_name, line, file)
 
-location_data = YAML.load(File.read('callsite-info.yml'))
+location_data = YAML.safe_load(File.read('callsite-info.yml'), [Symbol])
 
-selection = location_data.select do |key, callers|
+selection = location_data.select do |key, _callers|
   loc = Location.new(*key)
   loc.match(target_location)
 end
