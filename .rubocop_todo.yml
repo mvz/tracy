@@ -84,12 +84,6 @@ Style/FrozenStringLiteralComment:
     - 'rename-method.rb'
     - 'tracy.gemspec'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'rename-method.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
