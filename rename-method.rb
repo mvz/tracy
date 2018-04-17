@@ -5,7 +5,7 @@ location, old_name, new_name = *ARGV
 warn "Renaming #{old_name} to #{new_name}"
 file, line = location.split ':'
 line = line.to_i
-location_data = YAML.load(File.read('callsite-info.yml'))
+location_data = YAML.safe_load(File.read('callsite-info.yml'), [Symbol])
 locations = []
 
 Location = Struct.new(:method_name, :class_name, :line, :file)

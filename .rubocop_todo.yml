@@ -30,13 +30,6 @@ Naming/FileName:
   Exclude:
     - 'rename-method.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Security/YAMLLoad:
-  Exclude:
-    - 'bin/callsites'
-    - 'rename-method.rb'
-
 # Offense count: 4
 Style/Documentation:
   Exclude:
