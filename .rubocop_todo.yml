@@ -69,21 +69,6 @@ Style/Documentation:
     - 'experiment.rb'
     - 'lib/tracy.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: when_needed, always, never
-Style/FrozenStringLiteralComment:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'bin/callsites'
-    - 'experiment.rb'
-    - 'features/support/env.rb'
-    - 'lib/tracy.rb'
-    - 'rename-method.rb'
-    - 'tracy.gemspec'
-
 # Offense count: 2
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https

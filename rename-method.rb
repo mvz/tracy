@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'yaml'
 location, old_name, new_name = *ARGV
 warn "Renaming #{old_name} to #{new_name}"
