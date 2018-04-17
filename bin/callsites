@@ -10,11 +10,11 @@ Location = Struct.new(:method_name, :class_name, :line, :file) do
   end
 
   def pretty_print
-    if method_name
-      name = "#{class_name}##{method_name}"
-    else
-      name = '<main>'
-    end
+    name = if method_name
+             "#{class_name}##{method_name}"
+           else
+             '<main>'
+           end
     "#{name} at #{file}:#{line}"
   end
 end
