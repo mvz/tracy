@@ -33,7 +33,7 @@ target_location = Location.new(method_name, class_name, line, file)
 
 location_data = YAML.load(File.read('callsite-info.yml'))
 
-selection = location_data.select do |key, callers|
+selection = location_data.select do |key, _callers|
   loc = Location.new(*key)
   loc.match(target_location)
 end
