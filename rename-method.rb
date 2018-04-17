@@ -18,7 +18,7 @@ end
 rename_locations = (locations + [[line, file]]).sort.uniq
 warn rename_locations.inspect
 
-filenames = rename_locations.map {|caller| caller[1]}.sort.uniq
+filenames = rename_locations.map { |caller| caller[1] }.sort.uniq
 
 filenames.each do |calling_name|
   lines = File.readlines(calling_name)
