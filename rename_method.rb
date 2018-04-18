@@ -3,8 +3,8 @@
 require 'yaml'
 location, old_name, new_name = *ARGV
 warn "Renaming #{old_name} to #{new_name}"
-file, line = location.split ':'
-line = line.to_i
+target_file, target_line = location.split ':'
+target_line = target_line.to_i
 location_data = YAML.safe_load(File.read('callsite-info.yml'), [Symbol])
 locations = []
 
@@ -12,14 +12,14 @@ Location = Struct.new(:method_name, :class_name, :line, :file)
 
 location_data.each do |key, callers|
   loc = Location.new(*key)
-  next unless line == loc.line && file == loc.file
+  next unless target_line == loc.line && target_file == loc.file
   caller_locations = callers.keys.map do |_, _, line, file|
     [line, file]
   end
   locations += caller_locations
 end
 
-rename_locations = (locations + [[line, file]]).sort.uniq
+rename_locations = (locations + [[target_line, target_file]]).sort.uniq
 warn rename_locations.inspect
 
 filenames = rename_locations.map { |caller| caller[1] }.sort.uniq
