@@ -13,6 +13,7 @@ Location = Struct.new(:method_name, :class_name, :line, :file)
 location_data.each do |key, callers|
   loc = Location.new(*key)
   next unless target_line == loc.line && target_file == loc.file
+
   caller_locations = callers.keys.map do |_, _, line, file|
     [line, file]
   end
@@ -34,6 +35,7 @@ filenames.each do |calling_name|
     if /\b#{old_name}\b.*\b#{old_name}\b/.match?(lines[loc_line - 1])
       raise "More than one match at line #{loc_line} in #{calling_name}"
     end
+
     lines[loc_line - 1].gsub!(/\b#{old_name}\b/, new_name)
   end
   puts "# --- #{calling_name} ---"
