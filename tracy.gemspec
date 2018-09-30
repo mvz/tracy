@@ -24,6 +24,6 @@ Gem::Specification.new do |s|
   s.executables << 'callsites'
 
   s.add_development_dependency('aruba', '~> 0.14.0')
-  s.add_development_dependency('cucumber', '~> 3.0')
+  s.add_development_dependency('cucumber', '~> 4.0.0.rc.1')
   s.add_development_dependency('rake', '~> 12.0')
 end
