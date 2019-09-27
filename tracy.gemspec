@@ -25,5 +25,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency('aruba', '~> 0.14.0')
   s.add_development_dependency('cucumber', '~> 3.0')
-  s.add_development_dependency('rake', '~> 12.0')
+  s.add_development_dependency('rake', '~> 13.0')
 end
