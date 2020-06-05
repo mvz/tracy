@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.bindir = 'bin'
   s.executables << 'callsites'
 
-  s.add_development_dependency('aruba', '~> 1.0.0')
-  s.add_development_dependency('cucumber', '~> 3.0')
+  s.add_development_dependency('aruba', '~> 1.0')
+  s.add_development_dependency('cucumber', '~> 4.0')
   s.add_development_dependency('rake', '~> 13.0')
 end
