@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'yaml'
+require "yaml"
 
 Location = Struct.new(:method_name, :class_name, :line, :file) do
   def match(other)
@@ -15,7 +15,7 @@ Location = Struct.new(:method_name, :class_name, :line, :file) do
     name = if method_name
              "#{class_name}##{method_name}"
            else
-             '<main>'
+             "<main>"
            end
     "#{name} at #{file}:#{line}"
   end
@@ -24,16 +24,16 @@ end
 location = ARGV[0]
 
 if /:\d+$/.match?(location)
-  file, line = location.split ':'
+  file, line = location.split ":"
   line = line.to_i
 else
-  class_name, method_name = location.split '#'
+  class_name, method_name = location.split "#"
   method_name = method_name.to_sym if method_name
 end
 
 target_location = Location.new(method_name, class_name, line, file)
 
-location_data = YAML.safe_load(File.read('callsite-info.yml'), [Symbol])
+location_data = YAML.safe_load(File.read("callsite-info.yml"), [Symbol])
 
 selection = location_data.select do |key, _callers|
   loc = Location.new(*key)

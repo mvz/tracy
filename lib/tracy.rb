@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'yaml'
+require "yaml"
 
 class Tracy
   def initialize
@@ -21,13 +21,13 @@ class Tracy
 
   def done
     @trace.disable
-    IO.write('callsite-info.yml', YAML.dump(@callers))
+    IO.write("callsite-info.yml", YAML.dump(@callers))
   end
 
   private
 
   def data_array(trace_point)
     klass = trace_point.defined_class
-    [trace_point.method_id, klass ? klass.name : '', trace_point.lineno, trace_point.path]
+    [trace_point.method_id, klass ? klass.name : "", trace_point.lineno, trace_point.path]
   end
 end

@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require 'tracy'
+require "tracy"
 
 tracy = Tracy.new
 tracy.start
 
 class Foo
   def baz
-    puts 'baz'
+    puts "baz"
   end
 end
 
 class OtherFoo
   def baz
-    puts 'this is not the original baz'
+    puts "this is not the original baz"
   end
 end
 
@@ -28,7 +28,7 @@ class Bar
 end
 
 def blub
-  puts 'Blub'
+  puts "Blub"
   Foo.new.baz
 end
 
