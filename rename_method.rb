@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'yaml'
+require "yaml"
 location, old_name, new_name = *ARGV
 warn "Renaming #{old_name} to #{new_name}"
-target_file, target_line = location.split ':'
+target_file, target_line = location.split ":"
 target_line = target_line.to_i
-location_data = YAML.safe_load(File.read('callsite-info.yml'), [Symbol])
+location_data = YAML.safe_load(File.read("callsite-info.yml"), [Symbol])
 locations = []
 
 Location = Struct.new(:method_name, :class_name, :line, :file)
