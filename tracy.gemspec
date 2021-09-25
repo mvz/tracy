@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.summary = "Fun with tracing"
 
-  s.required_ruby_version = ">= 2.5.0"
+  s.required_ruby_version = ">= 2.7.0"
 
   s.files = Dir["lib/**/*.rb",
                 "features/**/*.rb",
