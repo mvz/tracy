@@ -21,7 +21,7 @@ class Tracy
 
   def done
     @trace.disable
-    IO.write("callsite-info.yml", YAML.dump(@callers))
+    File.write("callsite-info.yml", YAML.dump(@callers))
   end
 
   private
