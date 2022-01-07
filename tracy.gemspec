@@ -10,8 +10,9 @@ Gem::Specification.new do |s|
 
   s.platform = Gem::Platform::RUBY
   s.summary = "Fun with tracing"
-
   s.required_ruby_version = ">= 2.7.0"
+
+  s.metadata["rubygems_mfa_required"] = "true"
 
   s.files = Dir["lib/**/*.rb",
                 "features/**/*.rb",
