@@ -25,7 +25,9 @@ Gem::Specification.new do |s|
   s.bindir = "bin"
   s.executables << "callsites"
 
-  s.add_development_dependency("aruba", "~> 2.0")
-  s.add_development_dependency("cucumber", "~> 7.0")
-  s.add_development_dependency("rake", "~> 13.0")
+  s.add_development_dependency "aruba", "~> 2.0"
+  s.add_development_dependency "cucumber", "~> 7.0"
+  s.add_development_dependency "rake", "~> 13.0"
+  s.add_development_dependency "rubocop", "~> 1.24.0"
+  s.add_development_dependency "rubocop-performance", "~> 1.13.0"
 end
