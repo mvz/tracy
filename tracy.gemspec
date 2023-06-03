@@ -29,6 +29,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "aruba", "~> 2.0"
   s.add_development_dependency "cucumber", "~> 8.0"
   s.add_development_dependency "rake", "~> 13.0"
-  s.add_development_dependency "rubocop", "~> 1.25"
-  s.add_development_dependency "rubocop-performance", "~> 1.13"
+  s.add_development_dependency "rubocop", "~> 1.52"
+  s.add_development_dependency "rubocop-performance", "~> 1.18"
 end
