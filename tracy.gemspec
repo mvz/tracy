@@ -1,34 +1,35 @@
 # frozen_string_literal: true
 
-Gem::Specification.new do |s|
-  s.name = "tracy"
-  s.version = "0.0.4"
+Gem::Specification.new do |spec|
+  spec.name = "tracy"
+  spec.version = "0.0.4"
+  spec.authors = ["Matijs van Zuijlen"]
+  spec.email = ["matijs@matijs.net"]
 
-  s.author = "Matijs van Zuijlen"
-  s.email = "matijs@matijs.net"
-  s.homepage = "http://www.matijs.net"
+  spec.platform = Gem::Platform::RUBY
+  spec.summary = "Fun with tracing"
+  spec.homepage = "http://www.matijs.net"
 
-  s.platform = Gem::Platform::RUBY
-  s.summary = "Fun with tracing"
-  s.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.1.0"
 
-  s.metadata["rubygems_mfa_required"] = "true"
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["rubygems_mfa_required"] = "true"
 
-  s.files = Dir["lib/**/*.rb",
-                "features/**/*.rb",
-                "features/**/*.feature",
-                "bin/*",
-                "README.md",
-                "Rakefile",
-                "Gemfile"]
+  spec.files = Dir["lib/**/*.rb",
+                   "features/**/*.rb",
+                   "features/**/*.feature",
+                   "bin/*",
+                   "README.md",
+                   "Rakefile",
+                   "Gemfile"]
 
-  s.require_paths << "lib"
-  s.bindir = "bin"
-  s.executables << "callsites"
+  spec.require_paths << "lib"
+  spec.bindir = "bin"
+  spec.executables << "callsites"
 
-  s.add_development_dependency "aruba", "~> 2.0"
-  s.add_development_dependency "cucumber", "~> 9.0"
-  s.add_development_dependency "rake", "~> 13.0"
-  s.add_development_dependency "rubocop", "~> 1.52"
-  s.add_development_dependency "rubocop-performance", "~> 1.18"
+  spec.add_development_dependency "aruba", "~> 2.0"
+  spec.add_development_dependency "cucumber", "~> 9.0"
+  spec.add_development_dependency "rake", "~> 13.0"
+  spec.add_development_dependency "rubocop", "~> 1.52"
+  spec.add_development_dependency "rubocop-performance", "~> 1.18"
 end
