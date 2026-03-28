@@ -7,6 +7,6 @@ group :development, :test do
   gem "aruba", "~> 2.3"
   gem "cucumber", "~> 10.0"
   gem "rake", "~> 13.0"
-  gem "rubocop", "~> 1.52"
-  gem "rubocop-performance", "~> 1.18"
+  gem "rubocop", "~> 1.86"
+  gem "rubocop-performance", "~> 1.26"
 end
