@@ -4,7 +4,7 @@ inherit_mode:
   merge:
     - Exclude
 
-require:
+plugins:
   - rubocop-performance
 
 AllCops:
@@ -12,10 +12,6 @@ AllCops:
     - 'tmp/**/*'
   NewCops: enable
   TargetRubyVersion: 3.2
-
-# Put development dependencies in the gemspec so rubygems.org knows about them
-Gemspec/DevelopmentDependencies:
-  EnforcedStyle: gemspec
 
 # Be lenient with line length
 Layout/LineLength:
@@ -49,8 +45,8 @@ Lint/AssignmentInCondition:
 
 Metrics/BlockLength:
   Exclude:
-    - 'test/**/*' # Test describe blocks can be any size
-    - '*.gemspec' # Gem spec blocks can be any size
+    - 'test/**/*'  # Test describe blocks can be any size
+    - '*.gemspec'  # Gem spec blocks can be any size
 
 Performance/StartWith:
   AutoCorrect: true

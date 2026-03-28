@@ -26,10 +26,4 @@ Gem::Specification.new do |spec|
   spec.require_paths << "lib"
   spec.bindir = "bin"
   spec.executables << "callsites"
-
-  spec.add_development_dependency "aruba", "~> 2.3"
-  spec.add_development_dependency "cucumber", "~> 10.0"
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "rubocop", "~> 1.52"
-  spec.add_development_dependency "rubocop-performance", "~> 1.18"
 end
