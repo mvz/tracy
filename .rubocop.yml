@@ -13,10 +13,6 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 3.2
 
-# Put development dependencies in the gemspec so rubygems.org knows about them
-Gemspec/DevelopmentDependencies:
-  EnforcedStyle: gemspec
-
 # Be lenient with line length
 Layout/LineLength:
   Max: 92
