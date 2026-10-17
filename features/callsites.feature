@@ -58,6 +58,7 @@ Feature: Looking up callsites
         Bar#bar at program.rb:24
         <main> at program.rb:38
         Object#blub at program.rb:30
+
       """
 
   Scenario: Printing callsites of a method in a nested class
@@ -87,6 +88,7 @@ Feature: Looking up callsites
       """
       Foo::Bar#baz at program.rb:8 is called by
         <main> at program.rb:15
+
       """
 
   Scenario: Printing all callsites of class
@@ -121,6 +123,7 @@ Feature: Looking up callsites
         <main> at program.rb:17
       Foo#baz at program.rb:11 is called by
         <main> at program.rb:18
+
       """
 
   Scenario: Printing callsites by file and line
@@ -148,4 +151,5 @@ Feature: Looking up callsites
       """
       Foo#bar at program.rb:7 is called by
         <main> at program.rb:13
+
       """
